@@ -11,8 +11,12 @@ class ViewController extends AbstractController
     #[Route('/view', name: 'view')]
     public function index(): Response
     {
-        return $this->render('view/index.html.twig', [
-            'controller_name' => 'ViewController',
-        ]);
+        $context = [
+            'name' => 'stephane',
+            'age' => 105,
+            'ville' => 'Montpellier'
+        ];
+
+        return $this->render('view/index.html.twig', $context);
     }
 }
