@@ -1,15 +1,22 @@
 {% extends 'base.html.twig' %}
 
 
-{% block content %}
-
-{% if age > 100 %}
+{# {% block content %} #}
+{# {% if age > 100 %}
     {{ name }}
     {{ age }}
     {{ ville }}
 {% else %}
     Pas de données à afficher
-{% endif %}
+{% endif %} #}
+{# {% endblock %} #}
 
+// récupération des données de la table user de la bdd sql :
+
+{% block content %}
+
+{% $users = UserRepository->findAll() %}
+
+{% print_r(users) %}
 
 {% endblock %}
