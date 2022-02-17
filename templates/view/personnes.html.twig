@@ -17,19 +17,22 @@
       <thead>
         <tr>
           <th scope="col" class="col-md-1">Id</th>
-          <th scope="col" class="col-md-3">Prénom</th>
+          <th scope="col" class="col-md-3">Genre</th>
           <th scope="col" class="col-md-3">Nom</th>
-          <th scope="col" class="col-md-3">Edition</th>
+          {# <th scope="col" class="col-md-3">Naissance</th> #}
+          <th scope="col" class="col-md-3">Nationalite</th>
 
         </tr>
       </thead>
 
       <tbody>
-        {% for user in users %}
+        {% for personne in personnes %}
           <tr>
-            <th scope="row" >{{user.getId}}</th>
-            <td>{{user.getFirstName}}</td>
-            <td>{{user.getLastName}}</td>
+            <th scope="row" >{{personne.getId}}</th>
+            <td>{{personne.getGenre}}</td>
+            <td>{{personne.getNom}}</td>
+            {# <td>{{personne.getNaissancen}}</td> #}
+            <td>{{personne.getNationalite}}</td>
           </tr>
         {% endfor %}
       </tbody>
