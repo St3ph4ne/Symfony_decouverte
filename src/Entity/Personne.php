@@ -61,7 +61,7 @@ class Personne
 
     public function setNaissance(\DateTimeInterface $naissance): self
     {
-        $this->naissance = $naissance;
+        $this->naissance = ($naissance);
 
         return $this;
     }

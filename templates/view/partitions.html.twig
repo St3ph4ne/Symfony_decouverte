@@ -2,25 +2,33 @@
 
 {% block content %}
 
+  <!doctype html>
+  <html lang="fr">
+
   <body>
   <div>
     <table class="table container">
       <thead>
         <tr>
           <th scope="col" class="col-md-1">Id</th>
-          <th scope="col" class="col-md-3">Prénom</th>
-          <th scope="col" class="col-md-3">Nom</th>
-          <th scope="col" class="col-md-3">Edition</th>
-
+          <th scope="col" class="col-md-3">Année</th>
+          <th scope="col" class="col-md-3">Opus</th>
+          <th scope="col" class="col-md-3">Titre</th>
+          <th scope="col" class="col-md-3">Compositeur</th>
+          <th scope="col" class="col-md-3">Instrument</th>
+          <th scope="col" class="col-md-3">Durée</th>
         </tr>
       </thead>
 
       <tbody>
-        {% for user in users %}
+        {% for partition in partitions %}
           <tr>
-            <th scope="row" >{{user.getId}}</th>
-            <td>{{user.getFirstName}}</td>
-            <td>{{user.getLastName}}</td>
+            <th scope="row" >{{partition.getId}}</th>
+            <td>{{partition.getAnnee}}</td>
+            <td>{{partition.getOpus}}</td>
+            {# <td></td> #}
+            <td>{{partition.getTitre}}</td>
+            <td>{{partition.getCompositeur}}</td>
           </tr>
         {% endfor %}
       </tbody>

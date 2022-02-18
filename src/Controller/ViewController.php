@@ -7,9 +7,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use App\Repository\PersonneRepository;
+use App\Repository\PartitionRepository;
+use App\Entity\Personne;
+
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\Persistence\ManagerRegistry;
 
 class ViewController extends AbstractController
 {
+
+    /**
+     * Pour afficher toutes les données de la table personne :
+     */
     #[Route('/view', name: 'view')]
     public function index(): Response
     {
@@ -22,8 +33,9 @@ class ViewController extends AbstractController
         return $this->render('view/index.html.twig', $context);
     }
 
-
-
+    /**
+     * Pour afficher toutes les données de la table user :
+     */
     #[Route('/users', name: 'users')]
     public function getUsers(UserRepository $repo): Response
     {
@@ -33,6 +45,10 @@ class ViewController extends AbstractController
         return $this->render('view/users.html.twig', $CONTEXT);
     }
 
+
+    /**
+     * Pour afficher toutes les données de la table personne :
+     */
     #[Route('/personnes', name: 'personnes')]
     public function getPersonnes(PersonneRepository $repo): Response
     {
@@ -40,6 +56,46 @@ class ViewController extends AbstractController
         $CONTEXT = ['personnes'=>$personnes];
 
         return $this->render('view/personnes.html.twig', $CONTEXT);
+    }
+
+    
+    /**
+     * Pour modifier une entrée personne :
+     */
+    #[Route('/form/personne/{id}', name: 'personne_update')]
+    public function updatePersonne(ManagerRegistry $doctrine, int $id, Request $request): Response
+    {
+        $manager = $doctrine->getManager();
+        $personne = new Personne();
+        $personne = $manager->getRepository(Personne::class)->find($id);
+
+        $form = $this->createFormBuilder($personne)
+            ->add('genre', TextType::class)
+            ->add('nom', TextType::class)
+            ->add('naissance', DateType::class)
+            ->add('nationalite', TextType::class)
+            ->getForm();
+
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $manager->flush();
+                return $this->redirectToRoute('personnes');
+            }
+        $CONTEXT = ['updatePersonne' => $form->createView()];
+        return $this->render('view/update_personne.html.twig', $CONTEXT);
+    }
+
+
+    /**
+     * Pour afficher toutes les données de la table personne :
+     */
+    #[Route('/partitions', name: 'partitions')]
+    public function getPartitions(PartitionRepository $repo): Response
+    {
+        $partitions = $repo->getAll();
+        $CONTEXT = ['partitions'=>$partitions];
+
+        return $this->render('view/partitions.html.twig', $CONTEXT);
     }
 
 }

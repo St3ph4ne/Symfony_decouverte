@@ -19,6 +19,12 @@ class PartitionRepository extends ServiceEntityRepository
         parent::__construct($registry, Partition::class);
     }
 
+    //pour récupérer les données à partir de la bdd
+    public function getAll(){
+        return $this->findAll();
+    }
+
+
     // /**
     //  * @return Partition[] Returns an array of Partition objects
     //  */

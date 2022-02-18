@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% form_theme updatePersonne 'bootstrap_4_layout.html.twig' %}
+
+{% block title %} 
+    mise à jour de l'utilisateur
+{% endblock %}
+
+
+{% block content %}
+
+<body>
+    <div class="container">
+        <h1 class="head-h1 home">Apdating...</h1>
+        {{ form_start(updatePersonne) }}
+        {{ form_widget(updatePersonne) }}
+        <button class="btn btn-success" type="submit">Appliquer</button>
+        {{ form_end(updatePersonne) }}
+    </div>
+</body>
+
+{% endblock %}
