@@ -29,7 +29,7 @@
             <td>{{personne.getNom}}</td>
             <td>{{personne.getNaissance|date('d/m/Y')}}</td>
             <td>{{personne.getNationalite}}</td>
-            <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+            <td><a href="/personnes"><button type="button" class="btn btn-danger">Supprimer</button></a></td>
             <td><a href="/form/personne/{{personne.getId}}"><button type="button" class="btn btn-warning">Modifier</button></a></td>
             
           </tr>

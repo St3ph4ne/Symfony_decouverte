@@ -60,14 +60,14 @@ class ViewController extends AbstractController
 
     
     /**
-     * Pour modifier une entrée personne :
+     * Pour modifier une entité personne :
      */
     #[Route('/form/personne/{id}', name: 'personne_update')]
     public function updatePersonne(ManagerRegistry $doctrine, int $id, Request $request): Response
     {
-        $manager = $doctrine->getManager();
+        $entityManager = $doctrine->getManager();
+        $personne = $entityManager->getRepository(Personne::class)->find($id);
         $personne = new Personne();
-        $personne = $manager->getRepository(Personne::class)->find($id);
 
         $form = $this->createFormBuilder($personne)
             ->add('genre', TextType::class)
@@ -78,16 +78,33 @@ class ViewController extends AbstractController
 
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
-                $manager->flush();
+                $entityManager->flush();
                 return $this->redirectToRoute('personnes');
             }
+
         $CONTEXT = ['updatePersonne' => $form->createView()];
         return $this->render('view/update_personne.html.twig', $CONTEXT);
     }
 
+    /**
+     * Pour supprimer une entité Personne :
+     */
+    #[Route('/personnes', name: 'personne_delete')]
+    public function deletePersonne(ManagerRegistry $doctrine, int $id, Request $request): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $personne = $entityManager->getRepository(Personne::class)->find($id);
+        $entityManager->remove($personne);
+        $entityManager->flush();
+        return $this->redirectToRoute('personnes');
+        $CONTEXT = ['deletePersonne' => $form->createView()];
+        return $this->render('personnes', $CONTEXT);
+
+    }
+
 
     /**
-     * Pour afficher toutes les données de la table personne :
+     * Pour afficher toutes les données de la table partition :
      */
     #[Route('/partitions', name: 'partitions')]
     public function getPartitions(PartitionRepository $repo): Response
